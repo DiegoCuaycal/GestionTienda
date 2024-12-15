@@ -1,0 +1,59 @@
+﻿@page "/proveedors/create"
+@using Microsoft.EntityFrameworkCore
+@using PracticaClase.Models
+@inject IDbContextFactory<AppDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Proveedor</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Proveedor" OnValidSubmit="AddProveedor" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="razonsocial" class="form-label">RazonSocial:</label> 
+                <InputText id="razonsocial" @bind-Value="Proveedor.RazonSocial" class="form-control" /> 
+                <ValidationMessage For="() => Proveedor.RazonSocial" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="direccion" class="form-label">Direccion:</label> 
+                <InputText id="direccion" @bind-Value="Proveedor.Direccion" class="form-control" /> 
+                <ValidationMessage For="() => Proveedor.Direccion" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Telefono:</label> 
+                <InputText id="telefono" @bind-Value="Proveedor.Telefono" class="form-control" /> 
+                <ValidationMessage For="() => Proveedor.Telefono" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="ruc" class="form-label">Ruc:</label> 
+                <InputNumber id="ruc" @bind-Value="Proveedor.Ruc" class="form-control" /> 
+                <ValidationMessage For="() => Proveedor.Ruc" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/proveedors">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Proveedor Proveedor { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddProveedor()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Proveedores.Add(Proveedor);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/proveedors");
+    }
+}

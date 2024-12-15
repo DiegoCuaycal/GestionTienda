@@ -1,0 +1,38 @@
+﻿@page "/proveedors"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using PracticaClase.Models
+@implements IAsyncDisposable
+@inject IDbContextFactory<AppDbContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="proveedors/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Proveedores">
+    <PropertyColumn Property="proveedor => proveedor.RazonSocial" />
+    <PropertyColumn Property="proveedor => proveedor.Direccion" />
+    <PropertyColumn Property="proveedor => proveedor.Telefono" />
+    <PropertyColumn Property="proveedor => proveedor.Ruc" />
+
+    <TemplateColumn Context="proveedor">
+        <a href="@($"proveedors/edit?codigo={proveedor.Codigo}")">Edit</a> |
+        <a href="@($"proveedors/details?codigo={proveedor.Codigo}")">Details</a> |
+        <a href="@($"proveedors/delete?codigo={proveedor.Codigo}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private AppDbContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
