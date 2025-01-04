@@ -5,7 +5,7 @@
 namespace PracticaClase.Migrations
 {
     /// <inheritdoc />
-    public partial class V01 : Migration
+    public partial class v01sqlserver : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,12 +14,12 @@ namespace PracticaClase.Migrations
                 name: "Proveedores",
                 columns: table => new
                 {
-                    Codigo = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RazonSocial = table.Column<string>(type: "TEXT", nullable: false),
-                    Direccion = table.Column<double>(type: "REAL", nullable: false),
-                    Telefono = table.Column<double>(type: "REAL", nullable: false),
-                    Ruc = table.Column<double>(type: "REAL", nullable: false)
+                    Codigo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RazonSocial = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ruc = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,13 +30,13 @@ namespace PracticaClase.Migrations
                 name: "Productos",
                 columns: table => new
                 {
-                    Codigo = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    Precio = table.Column<double>(type: "REAL", nullable: false),
-                    Existencia = table.Column<double>(type: "REAL", nullable: false),
-                    Iva = table.Column<double>(type: "REAL", nullable: false),
-                    ProveedorCodigo = table.Column<int>(type: "INTEGER", nullable: false)
+                    Codigo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Precio = table.Column<double>(type: "float", nullable: false),
+                    Existencia = table.Column<double>(type: "float", nullable: false),
+                    Iva = table.Column<double>(type: "float", nullable: false),
+                    ProveedorCodigo = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

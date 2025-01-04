@@ -10,7 +10,9 @@ namespace PracticaClase
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContextFactory<AppDbContext>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.")));
+            // options.UseSqlite(builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContextSqlServer") 
+            ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.")));
 
             builder.Services.AddQuickGridEntityFrameworkAdapter();
 
